@@ -10,7 +10,7 @@ export default function CategorySidebar({ activeCat, onChange }: Props) {
   return (
     <nav
       aria-label="Food categories"
-      className="w-full lg:w-56 shrink-0 bg-white border-b lg:border-b-0 lg:border-r border-gray-100 flex lg:flex-col gap-1 px-2 py-2 overflow-x-auto lg:overflow-y-auto lg:overflow-x-hidden"
+      className="w-full lg:w-46 shrink-0 bg-white border-b lg:border-b-0 lg:border-r border-gray-100 flex lg:flex-col gap-1 px-2 py-2 overflow-x-auto lg:overflow-y-auto lg:overflow-x-hidden"
     >
       {/* Section label — desktop only */}
       <p className="hidden lg:block text-xs font-bold text-gray-400 uppercase tracking-widest px-3 pt-1 pb-2">
