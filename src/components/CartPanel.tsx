@@ -30,7 +30,7 @@ export default function CartPanel({ cartItems, onChangeQty, onRemove, onCheckout
   const total = afterDiscount;
 
   return (
-    <aside className="w-full lg:w-96 shrink-0 bg-white border-t lg:border-t-0 lg:border-l border-gray-100 flex flex-col max-h-[52vh] lg:max-h-full shadow-lg lg:shadow-none">
+    <aside className="w-full lg:w-96 shrink-0 bg-white border-t lg:border-t-0 lg:border-l border-gray-100 flex flex-col max-h-[72vh] lg:max-h-full shadow-lg lg:shadow-none">
 
       {/* ── Header ── */}
       <div className="px-5 py-4 border-b border-green-700 shrink-0 bg-green-600">

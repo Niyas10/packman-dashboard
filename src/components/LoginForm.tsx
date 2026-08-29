@@ -14,10 +14,33 @@ export default function LoginForm({ onLogin }: Props) {
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
   const [error, setError] = useState("");
+  const [fieldError, setFieldError] = useState<"username" | "password" | "both" | "">("");
   const [loading, setLoading] = useState(false);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    const trimmedUsername = username.trim();
+    const trimmedPassword = password.trim();
+
+    // Scenario-based validation before hitting the fake auth check
+    if (!trimmedUsername && !trimmedPassword) {
+      setFieldError("both");
+      setError("Please enter your username and password.");
+      return;
+    }
+    if (!trimmedUsername) {
+      setFieldError("username");
+      setError("Please enter your username.");
+      return;
+    }
+    if (!trimmedPassword) {
+      setFieldError("password");
+      setError("Please enter your password.");
+      return;
+    }
+
+    setFieldError("");
     setLoading(true);
     // Simulate brief auth delay for feel
     setTimeout(() => {
@@ -25,6 +48,7 @@ export default function LoginForm({ onLogin }: Props) {
         setError("");
         onLogin();
       } else {
+        setFieldError("both");
         setError("Incorrect username or password. Please try again.");
       }
       setLoading(false);
@@ -109,10 +133,14 @@ export default function LoginForm({ onLogin }: Props) {
                 <User size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
                 <input
                   value={username}
-                  onChange={(e) => { setUsername(e.target.value); setError(""); }}
+                  onChange={(e) => { setUsername(e.target.value); setError(""); setFieldError(""); }}
                   placeholder="Enter username"
                   autoComplete="username"
-                  className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-gray-200 bg-white text-gray-900 text-sm outline-none focus:border-green-500 focus:ring-2 focus:ring-green-100 transition placeholder:text-gray-300"
+                  className={`w-full pl-9 pr-4 py-2.5 rounded-xl border bg-white text-gray-900 text-sm outline-none focus:ring-2 transition placeholder:text-gray-300 ${
+                    fieldError === "username" || fieldError === "both"
+                      ? "border-red-300 focus:border-red-500 focus:ring-red-100"
+                      : "border-gray-200 focus:border-green-500 focus:ring-green-100"
+                  }`}
                 />
               </div>
             </div>
@@ -127,10 +155,14 @@ export default function LoginForm({ onLogin }: Props) {
                 <input
                   type={showPass ? "text" : "password"}
                   value={password}
-                  onChange={(e) => { setPassword(e.target.value); setError(""); }}
+                  onChange={(e) => { setPassword(e.target.value); setError(""); setFieldError(""); }}
                   placeholder="Enter password"
                   autoComplete="current-password"
-                  className="w-full pl-9 pr-10 py-2.5 rounded-xl border border-gray-200 bg-white text-gray-900 text-sm outline-none focus:border-green-500 focus:ring-2 focus:ring-green-100 transition placeholder:text-gray-300"
+                  className={`w-full pl-9 pr-10 py-2.5 rounded-xl border bg-white text-gray-900 text-sm outline-none focus:ring-2 transition placeholder:text-gray-300 ${
+                    fieldError === "password" || fieldError === "both"
+                      ? "border-red-300 focus:border-red-500 focus:ring-red-100"
+                      : "border-gray-200 focus:border-green-500 focus:ring-green-100"
+                  }`}
                 />
                 <button
                   type="button"
